@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #e0d8cc;
+  --bg-elevated: #f6f1e8;
+  --ink: #241f1a;
+  --muted: #6e6458;
+  --line: #cfc4b6;
+  --accent: #5c6a45;
+  --accent-soft: #e4e7d8;
+  --accent-deep: #3f4a2f;
+  --copper: #9a6a3d;
+  --copper-soft: #f0e4d4;
+  --focus: #5c4f7a;
+  --sidebar: #2a241e;
+  --sidebar-ink: #f3eee6;
+  --danger: #8f3a2c;
+  --glow: rgba(154, 106, 61, 0.16);
+  --paper: #faf6ef;
+  --desk: #d5cdc0;
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-deep: var(--accent-deep);
+  --color-copper: var(--copper);
+  --color-copper-soft: var(--copper-soft);
+  --color-focus: var(--focus);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-ink: var(--sidebar-ink);
+  --color-danger: var(--danger);
+  --color-paper: var(--paper);
+  --color-desk: var(--desk);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% 0%, var(--glow), transparent 55%),
+    radial-gradient(ellipse 55% 40% at 100% 10%, rgba(92, 106, 69, 0.12), transparent 50%),
+    linear-gradient(160deg, #e8e0d3 0%, #d9d0c2 45%, #e3dbcf 100%);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+button,
+textarea,
+input,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b9ae9e;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes settle-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes grain-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 120px 80px;
+  }
+}
+
+@keyframes ink-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.message-enter {
+  animation: rise-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.panel-shell {
+  position: relative;
+  animation: settle-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  background:
+    linear-gradient(180deg, rgba(250, 246, 239, 0.97), rgba(246, 241, 232, 0.99)),
+    var(--bg-elevated);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 18px 50px rgba(36, 31, 26, 0.1),
+    0 2px 6px rgba(36, 31, 26, 0.04);
+}
+
+.panel-shell::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+.composer-glow:focus-within {
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--line));
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--accent) 12%, transparent),
+    0 10px 28px rgba(36, 31, 26, 0.06);
+}
+
+.typing-dot {
+  animation: soft-pulse 1.2s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stream-caret {
+  animation: stream-caret-blink 1s steps(1, end) infinite;
+}
+
+@keyframes stream-caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.brand-underline {
+  transform-origin: left;
+  animation: ink-draw 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.nav-item-active {
+  position: relative;
+}
+
+.nav-item-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--copper);
+}
+
+.field-craft {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.field-craft:focus,
+.field-craft:focus-within {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--line));
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 12%, transparent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #f7f4ec;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--paper) 80%, white);
+  color: var(--ink);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--copper-soft);
+  border-color: color-mix(in oklab, var(--copper) 30%, var(--line));
+}
+
+.desk-rail {
+  background:
+    linear-gradient(180deg, rgba(213, 205, 192, 0.55), rgba(205, 196, 182, 0.7)),
+    var(--desk);
+}
+
+@media (max-width: 899px) {
+  .chat-rail-mobile-hidden {
+    display: none;
+  }
+}
